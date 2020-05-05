@@ -154,7 +154,7 @@ def game(computer):
     global table
     global points_table
 
-    while computer == 2:
+    while True:
         print(f"Player's {curr_player} turn, where do you want to put your piece?")
         show_table(table)
         play(curr_player, table, points_table)
