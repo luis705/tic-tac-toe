@@ -9,140 +9,19 @@ curr_player = 1
 
 def play(player, table, points_table):
     place = input()
+    indexes = choice_to_table(place)
     if player == 1:
-        if place == '1':
-            if points_table[0][0] == 0:
-                points_table[0][0] = 1
-                table[0][0] = 'X'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '2':
-            if points_table[0][1] == 0:
-                points_table[0][1] = 1
-                table[0][1] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '3':
-            if points_table[0][2] == 0:
-                points_table[0][2] = 1
-                table[0][2] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '4':
-            if points_table[1][0] == 0:
-                points_table[1][0] = 1
-                table[1][0] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '5':
-            if points_table[1][1] == 0:
-                points_table[1][1] = 1
-                table[1][1] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '6':
-            if points_table[1][2] == 0:
-                points_table[1][2] = 1
-                table[1][2] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '7':
-            if points_table[2][0] == 0:
-                points_table[2][0] = 1
-                table[2][0] = 'X'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '8':
-            if points_table[2][1] == 0:
-                points_table[2][1] = 1
-                table[2][1] = 'X'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '9':
-            if points_table[2][2] == 0:
-                points_table[2][2] = 1
-                table[2][2] = 'X'
-
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
+        if points_table[indexes[0]][indexes[1]] == 0:
+            points_table[indexes[0]][indexes[1]] = 1
+            table[indexes[0]][indexes[1]] = 'X'
         else:
             print("That's not a valid place!!!")
             play(player, table, points_table)
-    if player == 2:
-        if place == '1':
-            if points_table[0][0] == 0:
-                points_table[0][0] = -1
-                table[0][0] = 'O'
-        elif place == '2':
-            if points_table[0][1] == 0:
-                points_table[0][1] = -1
-                table[0][1] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '3':
-            if points_table[0][2] == 0:
-                points_table[0][2] = -1
-                table[0][2] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '4':
-            if points_table[1][0] == 0:
-                points_table[1][0] = -1
-                table[1][0] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '5':
-            if points_table[1][1] == 0:
-                points_table[1][1] = -1
-                table[1][1] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '6':
-            if points_table[1][2] == 0:
-                points_table[1][2] = -1
-                table[1][2] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '7':
-            if points_table[2][0] == 0:
-                points_table[2][0] = -1
-                table[2][0] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '8':
-            if points_table[2][1] == 0:
-                points_table[2][1] = -1
-                table[2][1] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
-        elif place == '9':
-            if points_table[2][2] == 0:
-                points_table[2][2] = -1
-                table[2][2] = 'O'
-            else:
-                print("That's not a valid place!!!")
-                play(player, table, points_table)
+
+    elif player == 2:
+        if points_table[indexes[0]][indexes[1]] == 0:
+            points_table[indexes[0]][indexes[1]] = -1
+            table[indexes[0]][indexes[1]] = 'O'
         else:
             print("That's not a valid place!!!")
             play(player, table, points_table)

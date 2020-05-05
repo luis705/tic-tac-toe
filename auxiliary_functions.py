@@ -72,3 +72,13 @@ def menu():
             print('You must type 1, 2 or 3')
         else:
             return choice
+
+
+def choice_to_table(choice):
+    choice = int(choice)
+    if 1 <= choice <= 3:
+        return [0, choice - 1]
+    if 4 <= choice <= 6:
+        return [1, choice - 4]
+    if 7 <= choice <= 9:
+        return [2, choice - 7]
