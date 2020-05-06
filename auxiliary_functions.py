@@ -1,25 +1,41 @@
-def winner(table):
+import copy
 
-    if sum(table[0]) == 3 or sum(table[1]) == 3 or sum(table[2]) == 3\
-            or table[0][0] + table[1][0] + table[2][0] == 3\
-            or table[0][1] + table[1][1] + table[2][1] == 3\
-            or table[0][2] + table[1][2] + table[2][2] == 3\
-            or table[0][0] + table[1][1] + table[2][2] == 3\
-            or table[0][2] + table[1][1] + table[2][0] == 3:
-        return 1
-    elif sum(table[0]) == 6 or sum(table[1]) == 6 or sum(table[2]) == -3\
-            or table[0][0] + table[1][0] + table[2][0] == -3\
-            or table[0][1] + table[1][1] + table[2][1] == -3\
-            or table[0][2] + table[1][2] + table[2][2] == -3\
-            or table[0][0] + table[1][1] + table[2][2] == -3\
-            or table[0][2] + table[1][1] + table[2][0] == -3:
-        return 2
-    else:
-        return 0
+x_square = 'X'
+o_square = 'O'
+
+o_wins = 'O wins!'
+x_wins = 'X wins!'
+draw = 'Draw!'
+
+table = [[' ' for i in range(3)] for j in range(3)]
+
+
+def winner(table):
+    potential_wins = []
+
+    # Look in the table for three in a row
+    for row in table:
+        potential_wins.append(list(row))
+
+    #  Three in a column
+    for i in range(3):
+        potential_wins.append(list([table[j][i] for j in range(3)]))
+
+    #  Three in a diagonal
+    potential_wins.append(list(table[i][i] for i in range(3)))
+    potential_wins.append(list(table[i][2 - i] for i in range(3)))
+
+    #  Checking if any three are the same
+    for trio in potential_wins:
+        if trio == ['X', 'X', 'X']:
+            return x_wins
+        elif trio == ['O', 'O', 'O']:
+            return o_wins
+    return 0
 
 
 def is_finished(table):
-    if 0 in table[0] or 0 in table[1] or 0 in table[2]:
+    if ' ' in table[0] or ' ' in table[1] or ' ' in table[2]:
         return False
     return True
 
@@ -32,23 +48,6 @@ def show_table(table):
           '---|---|---\n'
           f' {table[2][0]} | {table[2][1]} | {table[2][2]} \n')
 
-
-def game_modes():
-    print('/--------------------\ \n'
-          '|                    |\n'
-          '|  Choose game mode  |\n'
-          '|   1 - 1 player     |\n'
-          '|   2 - 2 players    |\n'
-          '|                    |\n'
-          '\--------------------/')
-
-    while True:
-        mode = input()
-
-        if mode != '1' and mode != '2':
-            print('You must choose between 1 and 2')
-        else:
-            return mode
 
 
 def menu():
@@ -82,3 +81,62 @@ def choice_to_table(choice):
         return [1, choice - 4]
     if 7 <= choice <= 9:
         return [2, choice - 7]
+
+
+def is_x_turn(table):
+    count = 0
+    for row in table:
+        count += table.count(x_square)
+        count -= table.count(o_square)
+    return count == 0
+
+
+def play(table, player):
+
+    #  Get the player choice
+    place = input()
+    indexes = choice_to_table(place)
+
+    if player == 1:
+        if table[indexes[0]][indexes[1]] == ' ':
+            table[indexes[0]][indexes[1]] = x_square
+        else:
+            print("That's not a valid place!")
+            play(table)
+    else:
+        if table[indexes[0]][indexes[1]] == ' ':
+            table[indexes[0]][indexes[1]] = o_square
+        else:
+            print("That's not a valid place!")
+            play(table)
+
+
+def game():
+
+    global table
+    player = 1
+
+    while True:
+
+        print(f"Player's {player} turn, where do you want to put your piece?")
+        show_table(table)
+        play(table, player)
+
+        if player == 1:
+            player = 2
+        else:
+            player = 1
+
+        if winner(table) != 0:
+            print(winner(table))
+            table = [[' ' for i in range(3)] for j in range(3)]
+            break
+
+        if is_finished(table):
+            print('Draw!')
+            table = [[' ' for i in range(3)] for j in range(3)]
+            break
+
+
+
+
